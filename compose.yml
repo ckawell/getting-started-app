@@ -1,0 +1,27 @@
+services:
+  web:
+    build: 
+      args:
+        NPM_TOKEN: ${NPM_TOKEN}
+      context: .
+      target: base
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/node/
+      - /node/node_modules
+      
+  # sqlite:
+  #   image: mysql:8.0.30
+  #   container_name: sub-api-mysql
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "3306:3306" # for connecting to MySQL (use tools/mysql-local.sh)
+  #   volumes:
+  #     # sql files in ./localdev are automatically loaded into fresh mysql dbs
+  #     - ./localdev:/docker-entrypoint-initdb.d
+  #     - ./localdev/mysql.conf.d:/etc/mysql/conf.d
+  #     - submissions_mysql:/var/lib/mysql/
